@@ -38,10 +38,8 @@ class ViewController: UIViewController{
                     let gitData = try decoder.decode(UserStats.self, from: data)
                     
                     if gitData.name != nil{
-                        
                         self.add(gitData)
                     }else{
-                        print(123)
                         self.alertInexistentUser()
                     }
                 } catch let err {
@@ -57,7 +55,7 @@ class ViewController: UIViewController{
         
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: self.users.count-1, section: 0)
-            self.tableView.insertRows(at: [indexPath], with: .bottom)
+            self.tableView.insertRows(at: [indexPath], with: .automatic)
             self.addUserTextField.text = ""
             self.view.endEditing(true)
         }
@@ -65,7 +63,7 @@ class ViewController: UIViewController{
     
     func alertInexistentUser(){
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Alert", message: "Usuario no encontrado", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Oops", message: "Usuario no encontrado", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             self.addUserTextField.text = ""
@@ -94,13 +92,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
-        cell.textLabel?.text = users[indexPath.row].name?.capitalized
-        
-//        let profileImage = cell.imageView?.downloadedFrom(url: users[indexPath.row].avatarUrl!)
-        cell.imageView?.downloadedFrom(url: users[indexPath.row].avatarUrl!)
-        cell.imageView?.layer.masksToBounds = true
-        cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.height)!/2
-        
+        DispatchQueue.main.async {
+            cell.textLabel?.text = self.users[indexPath.row].name?.capitalized
+            cell.imageView?.downloadedFrom(url: self.users[indexPath.row].avatarUrl!)
+            cell.imageView?.layer.masksToBounds = true
+            cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.height)!/2
+        }
         return cell
         
     }
