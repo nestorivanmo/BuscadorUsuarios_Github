@@ -95,7 +95,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
         cell.textLabel?.text = users[indexPath.row].name?.capitalized
+        
+//        let profileImage = cell.imageView?.downloadedFrom(url: users[indexPath.row].avatarUrl!)
         cell.imageView?.downloadedFrom(url: users[indexPath.row].avatarUrl!)
+        cell.imageView?.layer.masksToBounds = true
+        cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.height)!/2
+        
         return cell
         
     }
