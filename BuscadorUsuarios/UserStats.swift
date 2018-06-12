@@ -15,6 +15,7 @@ struct UserStats: Codable {
     let followers: Int?
     let avatarUrl: URL?
     let repos: Int?
+    let bio: String?
     
     private enum CodingKeys: String, CodingKey {
         case name
@@ -22,6 +23,7 @@ struct UserStats: Codable {
         case followers
         case repos = "public_repos"
         case avatarUrl = "avatar_url"
+        case bio
         
     }
 }

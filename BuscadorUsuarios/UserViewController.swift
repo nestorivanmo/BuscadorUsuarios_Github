@@ -36,6 +36,7 @@ class UserViewController: UIViewController {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var repoLabel: UILabel!
     @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
     
     var user: UserStats?
     
@@ -46,6 +47,7 @@ class UserViewController: UIViewController {
         followersLabel.text = "\((user?.followers)!)"
         repoLabel.text = "\((user?.repos)!)"
         loginLabel.text = (user?.location)
+        bioLabel.text = user?.bio
     
         imageView.downloadedFrom(url: (user?.avatarUrl)!)
         
